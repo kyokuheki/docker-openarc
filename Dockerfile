@@ -1,7 +1,7 @@
 FROM alpine:latest as builder
 LABEL maintainer Kenzo Okuda <kyokuheki@gmail.comt>
-ENV LANG="en_US.UTF-8" \
-    VERSION="1-0-0-Beta3"
+ENV LANG="en_US.UTF-8"
+    #VERSION="1-0-0-Beta3"
 
 RUN set -x \
  && apk add --no-cache \
@@ -18,10 +18,11 @@ RUN set -x \
     pkgconfig
 
 #ADD https://github.com/trusteddomainproject/OpenARC/archive/rel-openarc-1-0-0-Beta3.tar.gz /OpenARC
+# && curl -sSL https://github.com/trusteddomainproject/OpenARC/archive/rel-openarc-${VERSION}.tar.gz | tar zxvf - -C /openarc --strip-components 1 \
 
 RUN set -x \
  && mkdir /openarc \
- && curl -sSL https://github.com/trusteddomainproject/OpenARC/archive/rel-openarc-${VERSION}.tar.gz | tar zxvf - -C /openarc --strip-components 1 \
+ && curl -sSL https://github.com/trusteddomainproject/OpenARC/archive/develop.tar.gz | tar zxvf - -C /openarc --strip-components 1 \
  && cd /openarc \
  && autoreconf -fvi \
  && ./configure --prefix=/usr \
